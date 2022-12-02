@@ -1,0 +1,26 @@
+% FourierTransform_code
+
+[DataIn, Fs] = audioread('Published/highfrequencynoise.wav');
+%Read an audio file sampled data into DataIn and the sample rate into Fs in
+%Hz. [DataIn, Fs] are now output arguments.
+
+[N,P] = size(DataIn);
+% size(DataIn) determines how many samples the audio file has. N is the
+% sample size and P is the number of audio channels. P will no longer be
+% utilized past this point.
+
+ts = 1/Fs; % ts is sampling period
+tmax = (N-1)*ts; %max is the maximum period
+t =0:ts:tmax;
+%Defines a vector t that starts at 0 and increments by the sampling
+%period and goesto maximum period
+
+plot(t,DataIn) % Plot the audio file
+f = -Fs/2:Fs/(N-1):Fs/2; % For plotting the frequency spectrum
+z = fftshift(fft(DataIn)); % applies the fourier transform to the audio file
+
+plot(f,abs(z)) % plots the result of the fourier transform
+xlabel('Frequency'); % Lable the x axis
+ylabel('Power'); %lable the y axis
+title('Frequency and Power  Graph of Unfiltered Audio'); % Labels the graph's title
+
